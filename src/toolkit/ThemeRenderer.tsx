@@ -1,14 +1,23 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { IThemeProps, withTheme } from '../../themeing';
 import { invertColor } from './invertColor';
 
+const WIDTH = Dimensions.get('screen').width;
+
 const ThemeRenderer = ({ theme }: IThemeProps) => {
+
+  const [typographyPage, setTypographyPage] = useState(0);
+
   const contrastColor = invertColor(theme.colors.backgroundColor);
 
+  const onTypographyScrollViewScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const page = parseInt('' + (e.nativeEvent.contentOffset.x / e.nativeEvent.contentSize.width * Object.keys(theme.typography).length), 10);
+    setTypographyPage(page);
+  };
+
   const sectionHeader = (text: string) => (
-    <Text style={[styles.sectionHeader,
-    {
+    <Text style={[styles.sectionHeader, {
       color: theme.colors.primaryColor,
       ...theme.typography.h2,
     }]}>{text}</Text>
@@ -27,23 +36,46 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   const renderTypography = () => (
     <View style={styles.section}>
       {sectionHeader('Typography')}
-      {Object.keys(theme.typography).map((fontKey, index) => {
-        const typography = (theme.typography as any)[fontKey];
-        return (
-          <View
-            key={`typography-item-${index}`}
-            style={styles.unitContainer} >
-            <Text
-              style={{
-                color: contrastColor,
-                ...typography,
-              }}>
-              {`${fontKey}   |   `}
-              {'the quick brown fox jumps over the lazy dog'}
-            </Text>
-          </View>
-        );
-      })}
+      <ScrollView
+        onMomentumScrollEnd={onTypographyScrollViewScrollEnd}
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        horizontal>
+        {Object.keys(theme.typography).map((fontKey, index) => {
+          const typography = (theme.typography as any)[fontKey];
+          return (
+            <View
+              key={`typography-item-${index}`}
+              style={styles.typographyUnitContainer}>
+              <Text
+                style={[styles.typographyHeader, {
+                  color: contrastColor,
+                  ...typography,
+                }]}>
+                {`${fontKey}`}
+              </Text>
+              <Text
+                style={{
+                  color: contrastColor,
+                  ...typography,
+                }}>
+                {'Pack my box with five dozen liquor jugs.'}
+              </Text>
+            </View>
+          );
+        })}
+      </ScrollView>
+      <View style={styles.typographyPaginationContainer}>
+        {Object.keys(theme.typography).map((_, index) => {
+          const backgroundColor = index === typographyPage ? theme.colors.primaryColor : theme.colors.secondaryColor;
+          return (
+            <View style={[styles.typographyPaginationItem, {
+              borderColor: contrastColor,
+              backgroundColor: backgroundColor,
+            }]} />
+          );
+        })}
+      </View>
     </View >
   );
 
@@ -55,7 +87,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
         return (
           <View
             key={`color-item-${index}`}
-            style={styles.unitContainer}>
+            style={styles.colorUnitContainer}>
             <View style={[styles.colorRenderer, {
               backgroundColor: color,
               borderColor: contrastColor,
@@ -111,10 +143,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  unitContainer: {
+  colorUnitContainer: {
     flexDirection: 'row',
     paddingVertical: 4,
     alignItems: 'center',
+  },
+  typographyHeader: {
+    marginBottom: 16,
+  },
+  typographyUnitContainer: {
+    width: WIDTH - 64,
+    justifyContent: 'center',
+  },
+  typographyPaginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  typographyPaginationItem: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginHorizontal: 4,
+    marginTop: 32,
   },
 });
 

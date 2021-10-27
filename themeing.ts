@@ -42,22 +42,21 @@ const typography: ITypography = {
   h1: {
     fontSize: 24,
     fontWeight: 'bold',
-    lineHeight: 24,
+    lineHeight: 28,
   },
   h2: {
     fontSize: 18,
     fontWeight: '500',
-    lineHeight: 18,
+    lineHeight: 22,
   },
   h3: {
     fontSize: 16,
     fontWeight: '300',
-    lineHeight: 16,
+    lineHeight: 18,
   },
   normal: {
     fontSize: 14,
     fontWeight: 'normal',
-    lineHeight: 14,
   },
 };
 
