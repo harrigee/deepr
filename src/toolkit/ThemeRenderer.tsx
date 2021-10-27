@@ -7,55 +7,73 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   const contrastColor = invertColor(theme.colors.backgroundColor);
 
   const sectionHeader = (text: string) => (
-    <Text style={[styles.sectionHeader, { color: theme.colors.primaryColor }]}>{text}</Text>
+    <Text style={[styles.sectionHeader,
+    {
+      color: theme.colors.primaryColor,
+      ...theme.typography.h2,
+    }]}>{text}</Text>
   );
 
   const renderStatusBarStyle = () => (
     <View style={styles.section}>
       {sectionHeader('StatusBarStyle')}
-      <Text style={{ color: contrastColor }}>{`${theme.statusBarStyle}`}</Text>
+      <Text style={{
+        color: contrastColor,
+        ...theme.typography.normal,
+      }}>{`${theme.statusBarStyle}`}</Text>
     </View>
   );
 
   const renderTypography = () => (
     <View style={styles.section}>
       {sectionHeader('Typography')}
-      {Object.keys(theme.typography).map((fontKey) => {
-        const typography = (theme.typography as any)[fontKey] as any;
+      {Object.keys(theme.typography).map((fontKey, index) => {
+        const typography = (theme.typography as any)[fontKey];
         return (
-          <View style={styles.unitContainer}>
+          <View
+            key={`typography-item-${index}`}
+            style={styles.unitContainer} >
             <Text
               style={{
                 color: contrastColor,
-                fontSize: typography.fontSize,
-                fontWeight: typography.fontWeight,
-                lineHeight: typography.lineHeight,
-              }}
-            >
+                ...typography,
+              }}>
               {`${fontKey}   |   `}
               {'the quick brown fox jumps over the lazy dog'}
             </Text>
           </View>
         );
       })}
-    </View>
+    </View >
   );
 
   const renderColors = () => (
     <View style={styles.section}>
       {sectionHeader('Colors')}
-      {Object.keys(theme.colors).map((colorName) => {
+      {Object.keys(theme.colors).map((colorName, index) => {
         const color = (theme.colors as any)[colorName] as string;
         return (
-          <View style={styles.unitContainer}>
-            <View
-              style={[styles.colorRenderer, { backgroundColor: color, borderColor: contrastColor }]}
-            />
-            <Text style={{ color: contrastColor }}>{`${color}   |   ${colorName}`}</Text>
+          <View
+            key={`color-item-${index}`}
+            style={styles.unitContainer}>
+            <View style={[styles.colorRenderer, {
+              backgroundColor: color,
+              borderColor: contrastColor,
+            }]} />
+            <View style={styles.colorRow}>
+              <Text style={{
+                color: contrastColor,
+                ...theme.typography.normal,
+              }}>{color}</Text>
+              <Text style={{
+                color: contrastColor,
+                ...theme.typography.normal,
+              }}>{colorName}</Text>
+            </View>
           </View>
         );
       })}
-    </View>
+    </View >
   );
 
   return (
@@ -79,8 +97,6 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     alignSelf: 'flex-end',
-    fontSize: 18,
-    fontWeight: '400',
     marginBottom: 16,
   },
   colorRenderer: {
@@ -89,6 +105,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginRight: 8,
     borderWidth: 1,
+  },
+  colorRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   unitContainer: {
     flexDirection: 'row',

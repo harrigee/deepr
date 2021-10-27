@@ -19,7 +19,9 @@ function App() {
           title={isDark ? 'LightTheme' : 'DarkTheme'}
           onPress={() => setCurrentTheme(isDark ? themes.light : themes.dark)}
         />
-        <ScrollView style={styles.scrollViewContainer}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollViewContainer}>
           <ThemeRenderer />
         </ScrollView>
       </SafeAreaView>

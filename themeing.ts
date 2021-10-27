@@ -2,22 +2,30 @@ import { createTheming } from '@callstack/react-theme-provider';
 
 import { StatusBarStyle } from 'react-native';
 
-interface ITypography {
-  fontSize: number;
-  lineHeight: number;
-  fontWeight:
-  | 'normal'
+type FontWeightType = 'normal'
   | 'bold'
   | '100'
   | '200'
   | '300'
-  | '400 '
+  | '400'
   | '500'
   | '600'
   | '700'
   | '800'
   | '900'
   | undefined;
+
+interface ITypographyFont {
+  fontSize: number;
+  fontWeight?: FontWeightType
+  lineHeight?: number;
+}
+
+interface ITypography {
+  h1: ITypographyFont,
+  h2: ITypographyFont,
+  h3: ITypographyFont,
+  normal: ITypographyFont
 }
 
 interface ITheme {
@@ -26,13 +34,11 @@ interface ITheme {
     secondaryColor: string;
     backgroundColor: string;
   };
-  typography: { [key: string]: ITypography };
+  typography: ITypography;
   statusBarStyle: StatusBarStyle;
 }
 
-const typography: {
-  [key: string]: ITypography;
-} = {
+const typography: ITypography = {
   h1: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -48,6 +54,11 @@ const typography: {
     fontWeight: '300',
     lineHeight: 16,
   },
+  normal: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    lineHeight: 14,
+  },
 };
 
 export const themes: {
@@ -61,7 +72,7 @@ export const themes: {
       secondaryColor: '#FF1493',
     },
     statusBarStyle: 'dark-content',
-    typography,
+    typography: typography,
   },
   dark: {
     colors: {
@@ -70,7 +81,7 @@ export const themes: {
       secondaryColor: '#00BFFF',
     },
     statusBarStyle: 'light-content',
-    typography,
+    typography: typography,
   },
 };
 
