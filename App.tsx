@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, ScrollView, StatusBar, StyleSheet } from 'react-native';
-import { ThemeProvider, themes } from './themeing';
+import { ThemeProvider, themes } from './theme';
 import ThemeRenderer from './src/toolkit/ThemeRenderer';
 
 function App() {

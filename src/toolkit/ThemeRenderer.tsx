@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { IThemeProps, withTheme } from '../../themeing';
+import { IThemeProps, withTheme } from '../../theme';
 import { invertColor } from './invertColor';
 
 const WIDTH = Dimensions.get('screen').width;
