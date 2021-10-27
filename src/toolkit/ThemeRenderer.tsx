@@ -50,7 +50,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
               <Text
                 style={[styles.typographyHeader, {
                   color: contrastColor,
-                  ...typography,
+                  ...theme.typography.normal,
                 }]}>
                 {`${fontKey}`}
               </Text>
@@ -69,10 +69,12 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
         {Object.keys(theme.typography).map((_, index) => {
           const backgroundColor = index === typographyPage ? theme.colors.primaryColor : theme.colors.secondaryColor;
           return (
-            <View style={[styles.typographyPaginationItem, {
-              borderColor: contrastColor,
-              backgroundColor: backgroundColor,
-            }]} />
+            <View
+              key={`typohgraphy-paging-item-${index}`}
+              style={[styles.typographyPaginationItem, {
+                borderColor: contrastColor,
+                backgroundColor: backgroundColor,
+              }]} />
           );
         })}
       </View>
