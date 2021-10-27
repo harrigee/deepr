@@ -15,7 +15,7 @@ type FontWeightType = 'normal'
   | '900'
   | undefined;
 
-interface ITypographyFont {
+interface ITypography {
   fontSize: number;
   fontWeight?: FontWeightType
   lineHeight?: number;
@@ -32,25 +32,45 @@ interface IColor {
   opacity?: number;
 }
 
-interface ITypography {
-  h1: ITypographyFont,
-  h2: ITypographyFont,
-  h3: ITypographyFont,
-  normal: ITypographyFont
+interface ITypographies {
+  h1: ITypography,
+  h2: ITypography,
+  h3: ITypography,
+  normal: ITypography
+}
+
+interface IColors {
+  white: IColor;
+  black: IColor;
+  greyOpaque: IColor;
+  deepSkyBlue: IColor;
+  deepPink: IColor;
+}
+
+interface IThemeContext {
+  main: {
+    background: IColor,
+    button: IColor
+    text: ITypography & IColor
+  },
+  section: {
+    background: IColor,
+    title: ITypography & IColor
+    pagination: {
+      active: IColor,
+      inactive: IColor
+    }
+  }
 }
 
 interface ITheme {
-  colors: {
-    primary: IColor;
-    secondary: IColor;
-    background: IColor;
-    container: IColor;
-  };
-  typography: ITypography;
+  palette: IColors;
   statusBarStyle: StatusBarStyle;
+  typography: ITypographies;
+  context: IThemeContext;
 }
 
-const typography: ITypography = {
+const typography: ITypographies = {
   h1: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -73,47 +93,84 @@ const typography: ITypography = {
   },
 };
 
+const palette: IColors = {
+  white: {
+    color: '#FFFFFF',
+    opacity: 1,
+  },
+  black: {
+    color: '#000000',
+    opacity: 1,
+  },
+  greyOpaque: {
+    color: '#7f7f7f',
+    opacity: 0.2,
+  },
+  deepSkyBlue: {
+    color: '#00BFFF',
+    opacity: 1,
+  },
+  deepPink: {
+    color: '#FF1493',
+    opacity: 1,
+  },
+};
+
 export const themes: {
   light: ITheme;
   dark: ITheme;
 } = {
   light: {
-    colors: {
-      background: {
-        color: '#FFFFFF',
+    statusBarStyle: 'dark-content',
+    palette,
+    typography,
+    context: {
+      main: {
+        background: palette.white,
+        button: palette.deepPink,
+        text: {
+          ...palette.black,
+          ...typography.normal,
+        },
       },
-      container: {
-        color: '#7f7f7f',
-        opacity: 0.2,
-      },
-      primary: {
-        color: '#00BFFF',
-      },
-      secondary: {
-        color: '#FF1493',
+      section: {
+        background: palette.greyOpaque,
+        title: {
+          ...palette.deepSkyBlue,
+          ...typography.h2,
+        },
+        pagination: {
+          active: palette.deepSkyBlue,
+          inactive: palette.deepPink,
+        },
       },
     },
-    statusBarStyle: 'dark-content',
-    typography: typography,
   },
   dark: {
-    colors: {
-      background: {
-        color: '#000000',
+    statusBarStyle: 'light-content',
+    palette,
+    typography,
+    context: {
+      main: {
+        background: palette.black,
+        button: palette.deepSkyBlue,
+        text: {
+          ...palette.white,
+          ...typography.normal,
+        },
       },
-      container: {
-        color: '#7f7f7f',
-        opacity: 0.2,
-      },
-      primary: {
-        color: '#FF1493',
-      },
-      secondary: {
-        color: '#00BFFF',
+      section: {
+        background: palette.greyOpaque,
+        title: {
+          ...palette.deepPink,
+          ...typography.h2,
+        },
+        pagination: {
+          active: palette.deepPink,
+          inactive: palette.deepSkyBlue,
+        },
       },
     },
-    statusBarStyle: 'light-content',
-    typography: typography,
   },
 };
 

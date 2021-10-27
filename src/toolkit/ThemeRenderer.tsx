@@ -1,36 +1,27 @@
 import React, { useState } from 'react';
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { IThemeProps, withTheme } from '../../theme';
-import { invertColor } from './invertColor';
-
-const WIDTH = Dimensions.get('screen').width;
 
 const ThemeRenderer = ({ theme }: IThemeProps) => {
 
   const [typographyPage, setTypographyPage] = useState(0);
-
-  const contrastColor = invertColor(theme.colors.background.color);
 
   const onTypographyScrollViewScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const page = parseInt('' + (e.nativeEvent.contentOffset.x / e.nativeEvent.contentSize.width * Object.keys(theme.typography).length), 10);
     setTypographyPage(page);
   };
 
+  const screenWidth = Dimensions.get('screen').width;
+
   const sectionHeader = (text: string) => (
-    <Text style={[styles.sectionHeader, {
-      ...theme.colors.primary,
-      ...theme.typography.h2,
-    }]}>{text}</Text>
+    <Text style={[styles.sectionHeader, theme.context.section.title]}>{text}</Text>
   );
 
   const renderStatusBarStyle = () => (
     <View style={styles.section}>
       {sectionHeader('StatusBarStyle')}
-      <Text style={{
-        color: contrastColor,
-        ...theme.typography.normal,
-      }}>{`${theme.statusBarStyle}`}</Text>
-    </View>
+      <Text style={theme.context.main.text} > {`${theme.statusBarStyle}`}</Text>
+    </View >
   );
 
   const renderTypography = () => (
@@ -46,18 +37,17 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
           return (
             <View
               key={`typography-item-${index}`}
-              style={styles.typographyUnitContainer}>
+              style={[styles.typographyUnitContainer, {
+                width: screenWidth - 64,
+              }]}>
               <Text
-                style={[styles.typographyHeader, {
-                  color: contrastColor,
-                  ...theme.typography.normal,
-                }]}>
+                style={[styles.typographyHeader, theme.context.main.text]}>
                 {`${fontKey}`}
               </Text>
               <Text
                 style={[styles.typographyTextContainer, {
-                  color: contrastColor,
                   ...typography,
+                  color: theme.context.main.text.color,
                 }]}>
                 {'Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs.'}
               </Text>
@@ -67,12 +57,12 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
       </ScrollView>
       <View style={styles.typographyPaginationContainer}>
         {Object.keys(theme.typography).map((_, index) => {
-          const background = index === typographyPage ? theme.colors.primary : theme.colors.secondary;
+          const background = index === typographyPage ? theme.context.section.pagination.active : theme.context.section.pagination.inactive;
           return (
             <View
               key={`typohgraphy-paging-item-${index}`}
               style={[styles.typographyPaginationItem, {
-                borderColor: contrastColor,
+                borderColor: theme.context.main.text.color,
                 backgroundColor: background.color,
                 opacity: background.opacity,
               }]} />
@@ -85,14 +75,14 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   const renderColors = () => (
     <View style={styles.section}>
       {sectionHeader('Colors')}
-      {Object.keys(theme.colors).map((colorKey, index) => {
-        const colorValue = (theme.colors as any)[colorKey];
+      {Object.keys(theme.palette).map((colorKey, index) => {
+        const colorValue = (theme.palette as any)[colorKey];
         return (
           <View
             key={`color-item-${index}`}
             style={styles.colorUnitContainer}>
             <View style={[styles.colorRendererContainer, {
-              borderColor: contrastColor,
+              borderColor: theme.context.main.text.color,
             }]}>
               <View style={[styles.colorRenderer, {
                 backgroundColor: colorValue.color,
@@ -100,22 +90,11 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
               }]} />
             </View>
             <View style={styles.colorRow}>
-              <View style={styles.colorTextContainer}>
-                <Text style={[styles.colorText, {
-                  color: contrastColor,
-                  ...theme.typography.normal,
-                }]}>{`hex\n${colorValue.color}`}</Text>
-                {colorValue.opacity &&
-                  <Text style={[styles.colorText, {
-                    color: contrastColor,
-                    ...theme.typography.normal,
-                  }]}>{`opacity\n${colorValue.opacity}`}</Text>
-                }
-                <Text style={[styles.colorName, {
-                  color: contrastColor,
-                  ...theme.typography.normal,
-                }]}>{colorKey}</Text>
-              </View>
+              <Text style={[styles.colorText, theme.context.main.text]}>{`hex\n${colorValue.color}`}</Text>
+              {colorValue.opacity &&
+                <Text style={[styles.colorText, theme.context.main.text]}>{`opacity\n${colorValue.opacity}`}</Text>
+              }
+              <Text style={[styles.colorText, styles.colorName, theme.context.main.text]}>{colorKey}</Text>
             </View>
           </View>
         );
@@ -167,16 +146,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  colorTextContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   colorText: {
-    flexShrink: 1,
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
   },
   colorName: {
-    alignSelf: 'center',
+    textAlign: 'right',
   },
   typographyHeader: {
     marginBottom: 16,
@@ -185,7 +161,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   typographyUnitContainer: {
-    width: WIDTH - 64,
     justifyContent: 'center',
   },
   typographyPaginationContainer: {

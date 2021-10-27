@@ -6,16 +6,16 @@ import ThemeRenderer from './src/toolkit/ThemeRenderer';
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark);
 
-  const isDark = currentTheme.colors.background.color === themes.dark.colors.background.color;
+  const isDark = currentTheme.context.main.background.color === themes.dark.context.main.background.color;
 
   return (
     <ThemeProvider theme={currentTheme}>
       <StatusBar barStyle={currentTheme.statusBarStyle} />
       <SafeAreaView
-        style={[styles.container, { backgroundColor: currentTheme.colors.background.color }]}
+        style={[styles.container, { backgroundColor: currentTheme.context.main.background.color }]}
       >
         <Button
-          color={currentTheme.colors.secondary.color}
+          color={currentTheme.context.main.button.color}
           title={isDark ? 'LightTheme' : 'DarkTheme'}
           onPress={() => setCurrentTheme(isDark ? themes.light : themes.dark)}
         />
