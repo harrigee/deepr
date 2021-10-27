@@ -9,7 +9,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 
   const [typographyPage, setTypographyPage] = useState(0);
 
-  const contrastColor = invertColor(theme.colors.backgroundColor);
+  const contrastColor = invertColor(theme.colors.background.color);
 
   const onTypographyScrollViewScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const page = parseInt('' + (e.nativeEvent.contentOffset.x / e.nativeEvent.contentSize.width * Object.keys(theme.typography).length), 10);
@@ -18,7 +18,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 
   const sectionHeader = (text: string) => (
     <Text style={[styles.sectionHeader, {
-      color: theme.colors.primaryColor,
+      ...theme.colors.primary,
       ...theme.typography.h2,
     }]}>{text}</Text>
   );
@@ -55,11 +55,11 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 {`${fontKey}`}
               </Text>
               <Text
-                style={{
+                style={[styles.typographyTextContainer, {
                   color: contrastColor,
                   ...typography,
-                }}>
-                {'Pack my box with five dozen liquor jugs.'}
+                }]}>
+                {'Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs.'}
               </Text>
             </View>
           );
@@ -67,13 +67,14 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
       </ScrollView>
       <View style={styles.typographyPaginationContainer}>
         {Object.keys(theme.typography).map((_, index) => {
-          const backgroundColor = index === typographyPage ? theme.colors.primaryColor : theme.colors.secondaryColor;
+          const background = index === typographyPage ? theme.colors.primary : theme.colors.secondary;
           return (
             <View
               key={`typohgraphy-paging-item-${index}`}
               style={[styles.typographyPaginationItem, {
                 borderColor: contrastColor,
-                backgroundColor: backgroundColor,
+                backgroundColor: background.color,
+                opacity: background.opacity,
               }]} />
           );
         })}
@@ -84,25 +85,37 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   const renderColors = () => (
     <View style={styles.section}>
       {sectionHeader('Colors')}
-      {Object.keys(theme.colors).map((colorName, index) => {
-        const color = (theme.colors as any)[colorName] as string;
+      {Object.keys(theme.colors).map((colorKey, index) => {
+        const colorValue = (theme.colors as any)[colorKey];
         return (
           <View
             key={`color-item-${index}`}
             style={styles.colorUnitContainer}>
-            <View style={[styles.colorRenderer, {
-              backgroundColor: color,
+            <View style={[styles.colorRendererContainer, {
               borderColor: contrastColor,
-            }]} />
+            }]}>
+              <View style={[styles.colorRenderer, {
+                backgroundColor: colorValue.color,
+                opacity: colorValue.opacity,
+              }]} />
+            </View>
             <View style={styles.colorRow}>
-              <Text style={{
-                color: contrastColor,
-                ...theme.typography.normal,
-              }}>{color}</Text>
-              <Text style={{
-                color: contrastColor,
-                ...theme.typography.normal,
-              }}>{colorName}</Text>
+              <View style={styles.colorTextContainer}>
+                <Text style={[styles.colorText, {
+                  color: contrastColor,
+                  ...theme.typography.normal,
+                }]}>{`hex\n${colorValue.color}`}</Text>
+                {colorValue.opacity &&
+                  <Text style={[styles.colorText, {
+                    color: contrastColor,
+                    ...theme.typography.normal,
+                  }]}>{`opacity\n${colorValue.opacity}`}</Text>
+                }
+                <Text style={[styles.colorName, {
+                  color: contrastColor,
+                  ...theme.typography.normal,
+                }]}>{colorKey}</Text>
+              </View>
             </View>
           </View>
         );
@@ -127,31 +140,49 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(127.5,127.5,127.5,0.2)',
     padding: 16,
     borderRadius: 16,
-    marginBottom: 8,
+    marginBottom: 16,
   },
   sectionHeader: {
     alignSelf: 'flex-end',
     marginBottom: 16,
   },
-  colorRenderer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+  colorRendererContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     marginRight: 8,
     borderWidth: 1,
+  },
+  colorRenderer: {
+    flex: 1,
+    borderRadius: 20,
+  },
+  colorUnitContainer: {
+    flexDirection: 'row',
+    paddingVertical: 8,
+    alignItems: 'center',
   },
   colorRow: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  colorUnitContainer: {
+  colorTextContainer: {
+    flex: 1,
     flexDirection: 'row',
-    paddingVertical: 4,
-    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  colorText: {
+    flexShrink: 1,
+  },
+  colorName: {
+    alignSelf: 'center',
   },
   typographyHeader: {
     marginBottom: 16,
+  },
+  typographyTextContainer: {
+    marginHorizontal: 16,
   },
   typographyUnitContainer: {
     width: WIDTH - 64,
@@ -162,9 +193,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   typographyPaginationItem: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
     marginHorizontal: 4,
     marginTop: 32,
   },
