@@ -47,7 +47,15 @@ interface IColors {
   deepPink: IColor;
 }
 
-interface IThemeContext {
+interface IPalette {
+  main: IColor,
+  text: IColor,
+  paper: IColor,
+  primary: IColor,
+  secondary: IColor,
+}
+
+interface IComponentsTheme {
   main: {
     background: IColor,
     button: IColor
@@ -64,13 +72,12 @@ interface IThemeContext {
 }
 
 interface ITheme {
-  palette: IColors;
   statusBarStyle: StatusBarStyle;
-  typography: ITypographies;
-  context: IThemeContext;
+  palette: IPalette;
+  components: IComponentsTheme;
 }
 
-const typography: ITypographies = {
+export const typography: ITypographies = {
   h1: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -93,7 +100,7 @@ const typography: ITypographies = {
   },
 };
 
-const palette: IColors = {
+const colors: IColors = {
   white: {
     color: '#FFFFFF',
     opacity: 1,
@@ -116,58 +123,72 @@ const palette: IColors = {
   },
 };
 
+const lightPalette: IPalette = {
+  main: colors.white,
+  text: colors.black,
+  paper: colors.greyOpaque,
+  primary: colors.deepSkyBlue,
+  secondary: colors.deepPink,
+};
+
+const darkPalette: IPalette = {
+  main: colors.black,
+  text: colors.white,
+  paper: colors.greyOpaque,
+  primary: colors.deepPink,
+  secondary: colors.deepSkyBlue,
+};
+
 export const themes: {
   light: ITheme;
   dark: ITheme;
 } = {
   light: {
     statusBarStyle: 'dark-content',
-    palette,
-    typography,
-    context: {
+    palette: lightPalette,
+    components: {
       main: {
-        background: palette.white,
-        button: palette.deepPink,
+        background: lightPalette.main,
+        button: lightPalette.secondary,
         text: {
-          ...palette.black,
+          ...lightPalette.text,
           ...typography.normal,
         },
       },
       section: {
-        background: palette.greyOpaque,
+        background: lightPalette.paper,
         title: {
-          ...palette.deepSkyBlue,
+          ...lightPalette.primary,
           ...typography.h2,
         },
         pagination: {
-          active: palette.deepSkyBlue,
-          inactive: palette.deepPink,
+          active: lightPalette.primary,
+          inactive: lightPalette.secondary,
         },
       },
     },
   },
   dark: {
     statusBarStyle: 'light-content',
-    palette,
-    typography,
-    context: {
+    palette: darkPalette,
+    components: {
       main: {
-        background: palette.black,
-        button: palette.deepSkyBlue,
+        background: darkPalette.main,
+        button: darkPalette.secondary,
         text: {
-          ...palette.white,
+          ...darkPalette.text,
           ...typography.normal,
         },
       },
       section: {
-        background: palette.greyOpaque,
+        background: darkPalette.paper,
         title: {
-          ...palette.deepPink,
+          ...darkPalette.primary,
           ...typography.h2,
         },
         pagination: {
-          active: palette.deepPink,
-          inactive: palette.deepSkyBlue,
+          active: darkPalette.primary,
+          inactive: darkPalette.secondary,
         },
       },
     },
