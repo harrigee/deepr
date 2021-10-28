@@ -110,7 +110,7 @@ const colors: IColors = {
     opacity: 1,
   },
   greyOpaque: {
-    color: '#7f7f7f',
+    color: '#7f7f7fAA',
     opacity: 0.2,
   },
   deepSkyBlue: {
@@ -149,7 +149,7 @@ export const themes: {
     components: {
       main: {
         background: lightPalette.main,
-        button: lightPalette.secondary,
+        button: lightPalette.primary,
         text: {
           ...lightPalette.text,
           ...typography.normal,
@@ -174,7 +174,7 @@ export const themes: {
     components: {
       main: {
         background: darkPalette.main,
-        button: darkPalette.secondary,
+        button: darkPalette.primary,
         text: {
           ...darkPalette.text,
           ...typography.normal,

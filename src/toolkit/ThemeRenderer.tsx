@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { IThemeProps, typography, withTheme } from '../../theme';
+import Section from './Section';
 
 const ThemeRenderer = ({ theme }: IThemeProps) => {
 
@@ -18,14 +19,14 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   );
 
   const renderStatusBarStyle = () => (
-    <View style={styles.section}>
+    <Section>
       {sectionHeader('StatusBarStyle')}
       <Text style={theme.components.main.text} > {`${theme.statusBarStyle}`}</Text>
-    </View >
+    </Section>
   );
 
   const renderTypography = () => (
-    <View style={styles.section}>
+    <Section>
       {sectionHeader('Typography')}
       <ScrollView
         onMomentumScrollEnd={onTypographyScrollViewScrollEnd}
@@ -69,11 +70,11 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
           );
         })}
       </View>
-    </View >
+    </Section>
   );
 
   const renderColors = () => (
-    <View style={styles.section}>
+    <Section>
       {sectionHeader('Colors')}
       {Object.keys(theme.palette).map((colorKey, index) => {
         const colorValue = (theme.palette as any)[colorKey];
@@ -99,7 +100,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
           </View>
         );
       })}
-    </View >
+    </Section>
   );
 
   return (
@@ -116,7 +117,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   section: {
-    backgroundColor: 'rgba(127.5,127.5,127.5,0.2)',
     padding: 16,
     borderRadius: 16,
     marginBottom: 16,
