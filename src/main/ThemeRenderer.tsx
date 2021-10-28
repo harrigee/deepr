@@ -106,8 +106,29 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   );
 
   const renderLayout = () => (
-    <Section title={'Layout'}>
-      <></>
+    <Section title={'Space'}>
+      <View style={[styles.spaceContainer, {
+        marginBottom: theme.layout.space.normal,
+        marginHorizontal: theme.layout.space.normal,
+      }]}>
+        {Object.keys(theme.layout.space).map((spaceKey) => {
+          const space = (theme.layout.space as any)[spaceKey];
+          return (
+            <View style={[styles.spaceRow, {
+              marginVertical: theme.layout.space.small,
+            }]}>
+              <View style={[styles.spaceBar, {
+                width: space,
+                backgroundColor: theme.application.section.pagination.active.color,
+              }]} />
+              <Text
+                style={theme.application.main.text}>
+                {`${spaceKey}`}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
     </Section>
   );
 
@@ -164,6 +185,17 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 4,
+  },
+  spaceContainer: {
+    flexDirection: 'column',
+  },
+  spaceRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  spaceBar: {
+    height: 32,
   },
 });
 
