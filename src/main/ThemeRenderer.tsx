@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { withTheme } from '../../theme/themes';
 import { IThemeProps } from '../../theme/themes/theme.structure';
-import Section from './Section';
+import Section from '../toolkit/Section';
 
 const ThemeRenderer = ({ theme }: IThemeProps) => {
 
@@ -116,11 +116,6 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  section: {
-    padding: 16,
-    borderRadius: 16,
-    marginBottom: 16,
   },
   sectionHeader: {
     alignSelf: 'flex-end',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, ScrollView, StatusBar, StyleSheet } from 'react-native';
 import { ThemeProvider, themes } from './theme/themes';
-import ThemeRenderer from './src/toolkit/ThemeRenderer';
+import ThemeRenderer from './src/main/ThemeRenderer';
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark);

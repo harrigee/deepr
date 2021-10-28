@@ -1,5 +1,6 @@
 import { StatusBarStyle } from 'react-native';
 import { IColor, ITypography } from '../common/theme.common';
+import { ILayout } from '../definitions/theme.layout';
 import { IPalette } from '../definitions/theme.palette';
 import { ITypographies } from '../definitions/theme.typography';
 
@@ -15,7 +16,7 @@ interface IApplicationTheme {
     pagination: {
       active: IColor,
       inactive: IColor
-    }
+    },
   }
 }
 
@@ -23,6 +24,7 @@ export interface ITheme {
   statusBarStyle: StatusBarStyle;
   palette: IPalette;
   typography: ITypographies;
+  layout: ILayout,
   application: IApplicationTheme;
 }
 

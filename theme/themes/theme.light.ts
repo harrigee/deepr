@@ -1,6 +1,7 @@
 import { ITheme } from './theme.structure';
 import { IPalette } from '../definitions/theme.palette';
 import { ITypographies } from '../definitions/theme.typography';
+import { ILayout } from '../definitions/theme.layout';
 
 const typography: ITypographies = {
   h1: {
@@ -48,10 +49,28 @@ const palette: IPalette = {
   },
 };
 
+const layout: ILayout = {
+  space: {
+    small: 4,
+    normal: 8,
+    big: 16,
+    huge: 32,
+    monstrous: 64,
+  },
+  borderRadius: {
+    small: 4,
+    normal: 8,
+    big: 16,
+    huge: 32,
+  },
+};
+
+
 export const lightTheme: ITheme = {
-  statusBarStyle: 'light-content',
+  statusBarStyle: 'dark-content',
   palette,
-  typography: typography,
+  typography,
+  layout,
   application: {
     main: {
       background: palette.main,

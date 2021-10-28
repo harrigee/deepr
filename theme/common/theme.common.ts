@@ -28,10 +28,3 @@ export interface IGradient {
   opacity?: number;
 }
 
-export interface IColors {
-  white: IColor;
-  black: IColor;
-  greyOpaque: IColor;
-  deepSkyBlue: IColor;
-  deepPink: IColor;
-}
