@@ -43,9 +43,13 @@ const palette: IPalette = {
   secondary: {
     color: '#FF1493',
   },
-  gradient: {
-    fromColor: '#00BFFF',
-    toColor: '#FF1493',
+  toxic: {
+    fromColor: '#1dff68',
+    toColor: '#e115ff',
+  },
+  sundown: {
+    fromColor: '#007dff',
+    toColor: '#ff00ac',
   },
 };
 

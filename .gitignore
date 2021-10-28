@@ -58,3 +58,4 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+IDEWorkspaceChecks.plist

@@ -6,5 +6,6 @@ export interface IPalette {
   paper: IColor,
   primary: IColor,
   secondary: IColor,
-  gradient: IGradient,
+  toxic: IGradient,
+  sundown: IGradient,
 }
