@@ -12,12 +12,12 @@ const Section = ({ children, theme, title }: ISectionProps) => {
 
   return (
     <View style={{
-      marginBottom: theme.layout.space.big,
+      marginBottom: theme.layout.space.medium,
       borderRadius: theme.layout.borderRadius.big,
-      padding: theme.layout.space.big,
+      padding: theme.layout.space.medium,
     }}>
       <Text style={[styles.sectionHeader, theme.application.section.title, {
-        marginBottom: theme.layout.space.big,
+        marginBottom: theme.layout.space.medium,
       }]}>
         {title}
       </Text>

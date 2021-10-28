@@ -1,7 +1,8 @@
 export interface ILayout {
   space: {
+    tiny: number,
     small: number,
-    normal: number,
+    medium: number,
     big: number,
     huge: number,
     monstrous: number

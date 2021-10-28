@@ -28,11 +28,12 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
         return (
           <View
             key={`color-item-${index}`}
-            style={[{
-              paddingVertical: theme.layout.space.normal,
-            }, styles.colorUnitContainer]}>
+            style={[styles.colorUnitContainer, {
+              paddingVertical: theme.layout.space.small,
+              marginHorizontal: theme.layout.space.medium,
+            }]}>
             <View style={[styles.colorRendererContainer, {
-              marginRight: theme.layout.space.normal,
+              marginRight: theme.layout.space.medium,
               borderColor: theme.application.main.text.color,
             }]}>
               <View style={[styles.colorRenderer, {
@@ -40,13 +41,11 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 opacity: colorValue.opacity,
               }]} />
             </View>
-            <View style={styles.colorRow}>
-              <Text style={[styles.colorText, theme.application.main.text]}>{`hex\n${colorValue.color}`}</Text>
-              {colorValue.opacity &&
-                <Text style={[styles.colorText, theme.application.main.text]}>{`opacity\n${colorValue.opacity}`}</Text>
-              }
-              <Text style={[styles.colorText, styles.colorName, theme.application.main.text]}>{colorKey}</Text>
+            <View style={styles.colorDetails}>
+              <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
+              <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
             </View>
+            <Text style={[styles.colorText, styles.colorName, theme.application.main.text]}>{colorKey}</Text>
           </View>
         );
       })}
@@ -66,18 +65,18 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
             <View
               key={`typography-item-${index}`}
               style={[styles.typographyUnitContainer, {
-                width: screenWidth - theme.layout.space.huge * 2,
+                width: screenWidth - theme.layout.space.big * 2,
               }]}>
               <Text
                 style={[theme.application.main.text, {
-                  marginBottom: theme.layout.space.big,
+                  marginBottom: theme.layout.space.medium,
                 }]}>
                 {`${fontKey}`}
               </Text>
               <Text
                 style={[{
                   ...style,
-                  marginHorizontal: theme.layout.space.big,
+                  marginHorizontal: theme.layout.space.medium,
                   color: theme.application.main.text.color,
                 }]}>
                 {'Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs.'}
@@ -87,7 +86,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
         })}
       </ScrollView>
       <View style={[styles.typographyPaginationContainer, {
-        marginVertical: theme.layout.space.big,
+        marginVertical: theme.layout.space.medium,
       }]}>
         {Object.keys(theme.typography).map((_, index) => {
           const background = index === typographyPage ? theme.application.section.pagination.active : theme.application.section.pagination.inactive;
@@ -108,15 +107,17 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   const renderLayout = () => (
     <Section title={'Space'}>
       <View style={[styles.spaceContainer, {
-        marginBottom: theme.layout.space.normal,
-        marginHorizontal: theme.layout.space.normal,
+        marginBottom: theme.layout.space.small,
+        marginHorizontal: theme.layout.space.medium,
       }]}>
-        {Object.keys(theme.layout.space).map((spaceKey) => {
+        {Object.keys(theme.layout.space).map((spaceKey, index) => {
           const space = (theme.layout.space as any)[spaceKey];
           return (
-            <View style={[styles.spaceRow, {
-              marginVertical: theme.layout.space.small,
-            }]}>
+            <View
+              key={`space-item-${index}`}
+              style={[styles.spaceRow, {
+                marginVertical: theme.layout.space.tiny,
+              }]}>
               <View style={[styles.spaceBar, {
                 width: space,
                 backgroundColor: theme.application.section.pagination.active.color,
@@ -160,14 +161,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  colorRow: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  colorDetails: {
+    flexDirection: 'column',
   },
   colorText: {
     flex: 1,
-    alignSelf: 'center',
     justifyContent: 'flex-end',
   },
   colorName: {

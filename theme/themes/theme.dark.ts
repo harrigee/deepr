@@ -10,9 +10,9 @@ const typography: ITypographies = {
     lineHeight: 32,
   },
   h2: {
-    fontSize: 18,
-    fontWeight: '500',
-    lineHeight: 27,
+    fontSize: 20,
+    fontWeight: '600',
+    lineHeight: 30,
   },
   h3: {
     fontSize: 16,
@@ -29,33 +29,30 @@ const typography: ITypographies = {
 const palette: IPalette = {
   main: {
     color: '#000000',
-    opacity: 1,
   },
   text: {
     color: '#FFFFFF',
-    opacity: 1,
   },
   paper: {
-    color: '#7f7f7fAA',
+    color: '#7f7f7f',
     opacity: 0.2,
   },
   primary: {
     color: '#00BFFF',
-    opacity: 1,
   },
   secondary: {
     color: '#FF1493',
-    opacity: 1,
   },
 };
 
 const layout: ILayout = {
   space: {
-    small: 4,
-    normal: 8,
-    big: 16,
-    huge: 32,
-    monstrous: 64,
+    tiny: 4,
+    small: 8,
+    medium: 16,
+    big: 32,
+    huge: 64,
+    monstrous: 128,
   },
   borderRadius: {
     small: 4,
