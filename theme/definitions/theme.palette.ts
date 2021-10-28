@@ -1,4 +1,4 @@
-import { IColor } from '../common/theme.common';
+import { IColor, IGradient } from '../common/theme.common';
 
 export interface IPalette {
   main: IColor,
@@ -6,4 +6,5 @@ export interface IPalette {
   paper: IColor,
   primary: IColor,
   secondary: IColor,
+  gradient: IGradient,
 }

@@ -3,6 +3,7 @@ import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleS
 import { withTheme } from '../../theme/themes';
 import { IThemeProps } from '../../theme/themes/theme.structure';
 import Section from '../toolkit/Section';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ThemeRenderer = ({ theme }: IThemeProps) => {
 
@@ -17,7 +18,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 
   const renderStatusBarStyle = () => (
     <Section title={'StatusBarStyle'}>
-      <Text style={theme.application.main.text} > {`${theme.statusBarStyle}`}</Text>
+      <Text style={theme.application.section.subtitle} > {`${theme.statusBarStyle}`}</Text>
     </Section>
   );
 
@@ -30,22 +31,40 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
             key={`color-item-${index}`}
             style={[styles.colorUnitContainer, {
               paddingVertical: theme.layout.space.small,
-              marginHorizontal: theme.layout.space.medium,
+              marginRight: theme.layout.space.medium,
+              marginLeft: theme.layout.space.small,
             }]}>
             <View style={[styles.colorRendererContainer, {
               marginRight: theme.layout.space.medium,
               borderColor: theme.application.main.text.color,
             }]}>
-              <View style={[styles.colorRenderer, {
-                backgroundColor: colorValue.color,
-                opacity: colorValue.opacity,
-              }]} />
+              {colorValue.color &&
+                <View style={[styles.colorRenderer, {
+                  backgroundColor: colorValue.color,
+                  opacity: colorValue.opacity,
+                }]} />
+              }
+              {colorValue.fromColor && colorValue.toColor &&
+                <LinearGradient colors={[colorValue.fromColor, colorValue.toColor]} style={[styles.colorRenderer, {
+                  opacity: colorValue.opacity,
+                }]} />
+              }
             </View>
             <View style={styles.colorDetails}>
-              <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
-              <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
+              {colorValue.color &&
+                <>
+                  <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
+                  <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
+                </>
+              }
+              {colorValue.fromColor && colorValue.toColor &&
+                <>
+                  <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor}`}</Text>
+                  <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.toColor}`}</Text>
+                </>
+              }
             </View>
-            <Text style={[styles.colorText, styles.colorName, theme.application.main.text]}>{colorKey}</Text>
+            <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
           </View>
         );
       })}
@@ -68,7 +87,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 width: screenWidth - theme.layout.space.big * 2,
               }]}>
               <Text
-                style={[theme.application.main.text, {
+                style={[theme.application.section.subtitle, {
                   marginBottom: theme.layout.space.medium,
                 }]}>
                 {`${fontKey}`}
@@ -123,7 +142,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 backgroundColor: theme.application.section.pagination.active.color,
               }]} />
               <Text
-                style={theme.application.main.text}>
+                style={theme.application.section.subtitle}>
                 {`${spaceKey}`}
               </Text>
             </View>

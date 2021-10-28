@@ -43,6 +43,10 @@ const palette: IPalette = {
   secondary: {
     color: '#FF1493',
   },
+  gradient: {
+    fromColor: '#00BFFF',
+    toColor: '#FF1493',
+  },
 };
 
 const layout: ILayout = {
@@ -81,6 +85,10 @@ export const darkTheme: ITheme = {
       title: {
         ...palette.secondary,
         ...typography.h2,
+      },
+      subtitle: {
+        ...palette.text,
+        ...typography.h3,
       },
       pagination: {
         active: palette.primary,

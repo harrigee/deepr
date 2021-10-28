@@ -13,6 +13,7 @@ interface IApplicationTheme {
   section: {
     background: IColor,
     title: ITypography & IColor
+    subtitle: ITypography & IColor,
     pagination: {
       active: IColor,
       inactive: IColor
