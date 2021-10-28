@@ -15,75 +15,24 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 
   const screenWidth = Dimensions.get('screen').width;
 
-  const sectionHeader = (text: string) => (
-    <Text style={[styles.sectionHeader, theme.application.section.title]}>{text}</Text>
-  );
-
   const renderStatusBarStyle = () => (
-    <Section>
-      {sectionHeader('StatusBarStyle')}
+    <Section title={'StatusBarStyle'}>
       <Text style={theme.application.main.text} > {`${theme.statusBarStyle}`}</Text>
     </Section>
   );
 
-  const renderTypography = () => (
-    <Section>
-      {sectionHeader('Typography')}
-      <ScrollView
-        onMomentumScrollEnd={onTypographyScrollViewScrollEnd}
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-        horizontal>
-        {Object.keys(theme.typography).map((fontKey, index) => {
-          const style = (theme.typography as any)[fontKey];
-          return (
-            <View
-              key={`typography-item-${index}`}
-              style={[styles.typographyUnitContainer, {
-                width: screenWidth - 64,
-              }]}>
-              <Text
-                style={[styles.typographyHeader, theme.application.main.text]}>
-                {`${fontKey}`}
-              </Text>
-              <Text
-                style={[styles.typographyTextContainer, {
-                  ...style,
-                  color: theme.application.main.text.color,
-                }]}>
-                {'Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs.'}
-              </Text>
-            </View>
-          );
-        })}
-      </ScrollView>
-      <View style={styles.typographyPaginationContainer}>
-        {Object.keys(theme.typography).map((_, index) => {
-          const background = index === typographyPage ? theme.application.section.pagination.active : theme.application.section.pagination.inactive;
-          return (
-            <View
-              key={`typohgraphy-paging-item-${index}`}
-              style={[styles.typographyPaginationItem, {
-                borderColor: theme.application.main.text.color,
-                backgroundColor: background.color,
-                opacity: background.opacity,
-              }]} />
-          );
-        })}
-      </View>
-    </Section>
-  );
-
   const renderColors = () => (
-    <Section>
-      {sectionHeader('Colors')}
+    <Section title={'Colors'}>
       {Object.keys(theme.palette).map((colorKey, index) => {
         const colorValue = (theme.palette as any)[colorKey];
         return (
           <View
             key={`color-item-${index}`}
-            style={styles.colorUnitContainer}>
+            style={[{
+              paddingVertical: theme.layout.space.normal,
+            }, styles.colorUnitContainer]}>
             <View style={[styles.colorRendererContainer, {
+              marginRight: theme.layout.space.normal,
               borderColor: theme.application.main.text.color,
             }]}>
               <View style={[styles.colorRenderer, {
@@ -104,11 +53,70 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
     </Section>
   );
 
+  const renderTypography = () => (
+    <Section title={'Typography'}>
+      <ScrollView
+        onMomentumScrollEnd={onTypographyScrollViewScrollEnd}
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        horizontal>
+        {Object.keys(theme.typography).map((fontKey, index) => {
+          const style = (theme.typography as any)[fontKey];
+          return (
+            <View
+              key={`typography-item-${index}`}
+              style={[styles.typographyUnitContainer, {
+                width: screenWidth - theme.layout.space.huge * 2,
+              }]}>
+              <Text
+                style={[theme.application.main.text, {
+                  marginBottom: theme.layout.space.big,
+                }]}>
+                {`${fontKey}`}
+              </Text>
+              <Text
+                style={[{
+                  ...style,
+                  marginHorizontal: theme.layout.space.big,
+                  color: theme.application.main.text.color,
+                }]}>
+                {'Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs.'}
+              </Text>
+            </View>
+          );
+        })}
+      </ScrollView>
+      <View style={[styles.typographyPaginationContainer, {
+        marginVertical: theme.layout.space.big,
+      }]}>
+        {Object.keys(theme.typography).map((_, index) => {
+          const background = index === typographyPage ? theme.application.section.pagination.active : theme.application.section.pagination.inactive;
+          return (
+            <View
+              key={`typohgraphy-paging-item-${index}`}
+              style={[styles.typographyPaginationItem, {
+                borderColor: theme.application.main.text.color,
+                backgroundColor: background.color,
+                opacity: background.opacity,
+              }]} />
+          );
+        })}
+      </View>
+    </Section>
+  );
+
+  const renderLayout = () => (
+    <Section title={'Layout'}>
+      <></>
+    </Section>
+  );
+
   return (
     <View style={[styles.container]}>
       {renderStatusBarStyle()}
       {renderColors()}
       {renderTypography()}
+      {renderLayout()}
     </View>
   );
 };
@@ -117,15 +125,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  sectionHeader: {
-    alignSelf: 'flex-end',
-    marginBottom: 16,
-  },
   colorRendererContainer: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 8,
     borderWidth: 1,
   },
   colorRenderer: {
@@ -134,7 +137,6 @@ const styles = StyleSheet.create({
   },
   colorUnitContainer: {
     flexDirection: 'row',
-    paddingVertical: 8,
     alignItems: 'center',
   },
   colorRow: {
@@ -150,12 +152,6 @@ const styles = StyleSheet.create({
   colorName: {
     textAlign: 'right',
   },
-  typographyHeader: {
-    marginBottom: 16,
-  },
-  typographyTextContainer: {
-    marginHorizontal: 16,
-  },
   typographyUnitContainer: {
     justifyContent: 'center',
   },
@@ -168,7 +164,6 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 4,
-    marginTop: 32,
   },
 });
 

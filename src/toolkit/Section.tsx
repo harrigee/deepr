@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { withTheme } from '../../theme/themes';
 import { IThemeProps } from '../../theme/themes/theme.structure';
 
 interface ISectionProps extends IThemeProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
+  title: string;
 }
 
-const Section = ({ children, theme }: ISectionProps) => {
+const Section = ({ children, theme, title }: ISectionProps) => {
 
   return (
     <View style={{
@@ -15,6 +16,11 @@ const Section = ({ children, theme }: ISectionProps) => {
       borderRadius: theme.layout.borderRadius.big,
       padding: theme.layout.space.big,
     }}>
+      <Text style={[styles.sectionHeader, theme.application.section.title, {
+        marginBottom: theme.layout.space.big,
+      }]}>
+        {title}
+      </Text>
       <View style={[StyleSheet.absoluteFill, {
         borderRadius: theme.layout.borderRadius.big,
         backgroundColor: theme.application.section.background.color,
@@ -24,5 +30,11 @@ const Section = ({ children, theme }: ISectionProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  sectionHeader: {
+    alignSelf: 'flex-end',
+  },
+});
 
 export default withTheme(Section);
