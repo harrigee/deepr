@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { IThemeProps, typography, withTheme } from '../../theme';
+import { withTheme } from '../../theme/themes';
+import { IThemeProps } from '../../theme/themes/theme.structure';
 import Section from './Section';
 
 const ThemeRenderer = ({ theme }: IThemeProps) => {
@@ -8,20 +9,20 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   const [typographyPage, setTypographyPage] = useState(0);
 
   const onTypographyScrollViewScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const page = parseInt('' + (e.nativeEvent.contentOffset.x / e.nativeEvent.contentSize.width * Object.keys(typography).length), 10);
+    const page = parseInt('' + (e.nativeEvent.contentOffset.x / e.nativeEvent.contentSize.width * Object.keys(theme.typography).length), 10);
     setTypographyPage(page);
   };
 
   const screenWidth = Dimensions.get('screen').width;
 
   const sectionHeader = (text: string) => (
-    <Text style={[styles.sectionHeader, theme.components.section.title]}>{text}</Text>
+    <Text style={[styles.sectionHeader, theme.application.section.title]}>{text}</Text>
   );
 
   const renderStatusBarStyle = () => (
     <Section>
       {sectionHeader('StatusBarStyle')}
-      <Text style={theme.components.main.text} > {`${theme.statusBarStyle}`}</Text>
+      <Text style={theme.application.main.text} > {`${theme.statusBarStyle}`}</Text>
     </Section>
   );
 
@@ -33,8 +34,8 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
         showsHorizontalScrollIndicator={false}
         pagingEnabled
         horizontal>
-        {Object.keys(typography).map((fontKey, index) => {
-          const style = (typography as any)[fontKey];
+        {Object.keys(theme.typography).map((fontKey, index) => {
+          const style = (theme.typography as any)[fontKey];
           return (
             <View
               key={`typography-item-${index}`}
@@ -42,13 +43,13 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 width: screenWidth - 64,
               }]}>
               <Text
-                style={[styles.typographyHeader, theme.components.main.text]}>
+                style={[styles.typographyHeader, theme.application.main.text]}>
                 {`${fontKey}`}
               </Text>
               <Text
                 style={[styles.typographyTextContainer, {
                   ...style,
-                  color: theme.components.main.text.color,
+                  color: theme.application.main.text.color,
                 }]}>
                 {'Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs. Pack my box with five dozen liquor jugs.'}
               </Text>
@@ -57,13 +58,13 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
         })}
       </ScrollView>
       <View style={styles.typographyPaginationContainer}>
-        {Object.keys(typography).map((_, index) => {
-          const background = index === typographyPage ? theme.components.section.pagination.active : theme.components.section.pagination.inactive;
+        {Object.keys(theme.typography).map((_, index) => {
+          const background = index === typographyPage ? theme.application.section.pagination.active : theme.application.section.pagination.inactive;
           return (
             <View
               key={`typohgraphy-paging-item-${index}`}
               style={[styles.typographyPaginationItem, {
-                borderColor: theme.components.main.text.color,
+                borderColor: theme.application.main.text.color,
                 backgroundColor: background.color,
                 opacity: background.opacity,
               }]} />
@@ -83,7 +84,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
             key={`color-item-${index}`}
             style={styles.colorUnitContainer}>
             <View style={[styles.colorRendererContainer, {
-              borderColor: theme.components.main.text.color,
+              borderColor: theme.application.main.text.color,
             }]}>
               <View style={[styles.colorRenderer, {
                 backgroundColor: colorValue.color,
@@ -91,11 +92,11 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
               }]} />
             </View>
             <View style={styles.colorRow}>
-              <Text style={[styles.colorText, theme.components.main.text]}>{`hex\n${colorValue.color}`}</Text>
+              <Text style={[styles.colorText, theme.application.main.text]}>{`hex\n${colorValue.color}`}</Text>
               {colorValue.opacity &&
-                <Text style={[styles.colorText, theme.components.main.text]}>{`opacity\n${colorValue.opacity}`}</Text>
+                <Text style={[styles.colorText, theme.application.main.text]}>{`opacity\n${colorValue.opacity}`}</Text>
               }
-              <Text style={[styles.colorText, styles.colorName, theme.components.main.text]}>{colorKey}</Text>
+              <Text style={[styles.colorText, styles.colorName, theme.application.main.text]}>{colorKey}</Text>
             </View>
           </View>
         );

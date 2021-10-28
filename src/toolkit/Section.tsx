@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { IThemeProps, withTheme } from '../../theme';
+import { withTheme } from '../../theme/themes';
+import { IThemeProps } from '../../theme/themes/theme.structure';
 
 interface ISectionProps extends IThemeProps {
   children?: React.ReactNode
@@ -11,8 +12,8 @@ const Section = (props: ISectionProps) => {
   return (
     <View style={styles.section}>
       <View style={[styles.background, StyleSheet.absoluteFill, {
-        backgroundColor: props.theme.components.section.background.color,
-        opacity: props.theme.components.section.background.opacity,
+        backgroundColor: props.theme.application.section.background.color,
+        opacity: props.theme.application.section.background.opacity,
       }]} />
       {props.children}
     </View>
