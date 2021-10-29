@@ -9,11 +9,15 @@ interface IProps {
   height?: number;
   width?: number;
   margin?: number;
+  marginVertical?: number;
+  marginHorizontal?: number;
   marginTop?: number;
   marginLeft?: number;
   marginRight?: number;
   marginBottom?: number;
   padding?: number;
+  paddingVertical?: number;
+  paddingHorizontal?: number;
   paddingTop?: number;
   paddingLeft?: number;
   paddingRight?: number;
@@ -23,6 +27,8 @@ interface IProps {
   borderTopRightRadius?: number;
   borderBottomLeftRadius?: number;
   borderBottomRightRadius?: number;
+  borderWidth?: number;
+  borderColor?: string;
   color?: IColor;
   gradient?: IGradient;
 }
@@ -53,7 +59,7 @@ export const Box = (props: IProps) => {
         <View style={[StyleSheet.absoluteFill, backgroundColor, borderRadius]} />
       }
       {gradient &&
-        <LinearGradient colors={[gradient.fromColor, gradient.toColor]} style={[StyleSheet.absoluteFill, borderRadius]} />
+        <LinearGradient colors={[gradient.fromColor, gradient.toColor]} style={[StyleSheet.absoluteFill, borderRadius, { opacity: gradient.opacity }]} />
       }
       {props.children}
     </View>

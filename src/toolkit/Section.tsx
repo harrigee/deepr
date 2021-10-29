@@ -14,7 +14,7 @@ const Section = ({ children, theme, title }: IProps) => {
   return (
     <Box
       color={theme.application.section.background}
-      borderRadius={theme.layout.borderRadius.big}
+      borderRadius={theme.layout.borderRadius.huge}
       padding={theme.layout.space.medium}
       marginBottom={theme.layout.space.medium}>
       <Box marginBottom={theme.layout.space.medium}>

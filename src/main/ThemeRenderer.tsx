@@ -3,7 +3,7 @@ import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleS
 import { withTheme } from '../../theme/themes';
 import { IThemeProps } from '../../theme/themes/theme.structure';
 import Section from '../toolkit/Section';
-import LinearGradient from 'react-native-linear-gradient';
+import { Box } from '../toolkit/Box';
 
 const ThemeRenderer = ({ theme }: IThemeProps) => {
 
@@ -27,48 +27,40 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
       {Object.keys(theme.palette).map((colorKey, index) => {
         const colorValue = (theme.palette as any)[colorKey];
         return (
-          <View
-            key={`color-item-${index}`}
-            style={[styles.colorUnitContainer, {
-              paddingVertical: theme.layout.space.small,
-              marginRight: theme.layout.space.medium,
-              marginLeft: theme.layout.space.small,
-            }]}>
-            <View style={[styles.colorRendererContainer, {
-              marginRight: theme.layout.space.medium,
-              borderColor: theme.application.main.text.color,
-            }]}>
-              {colorValue.color &&
-                <View style={[styles.colorRenderer, {
-                  backgroundColor: colorValue.color,
-                  opacity: colorValue.opacity,
-                }]} />
-              }
-              {colorValue.fromColor && colorValue.toColor &&
-                <LinearGradient colors={[colorValue.fromColor, colorValue.toColor]} style={[styles.colorRenderer, {
-                  opacity: colorValue.opacity,
-                }]} />
-              }
+          <Box
+            paddingVertical={theme.layout.space.small}
+            marginRight={theme.layout.space.medium}
+            marginLeft={theme.layout.space.small}
+            key={`color-item-${index}`}>
+            <View style={styles.colorUnitContainer}>
+              <Box marginRight={theme.layout.space.medium}>
+                {colorValue.color &&
+                  <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} color={colorValue} />
+                }
+                {colorValue.fromColor && colorValue.toColor &&
+                  <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} gradient={colorValue} />
+                }
+              </Box>
+              <View style={styles.colorDetails}>
+                {colorValue.color &&
+                  <>
+                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
+                    <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
+                  </>
+                }
+                {colorValue.fromColor && colorValue.toColor &&
+                  <>
+                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor}`}</Text>
+                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.toColor}`}</Text>
+                  </>
+                }
+              </View>
+              <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
             </View>
-            <View style={styles.colorDetails}>
-              {colorValue.color &&
-                <>
-                  <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
-                  <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
-                </>
-              }
-              {colorValue.fromColor && colorValue.toColor &&
-                <>
-                  <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor}`}</Text>
-                  <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.toColor}`}</Text>
-                </>
-              }
-            </View>
-            <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
-          </View>
+          </Box>
         );
       })}
-    </Section>
+    </Section >
   );
 
   const renderTypography = () => (
@@ -104,22 +96,22 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
           );
         })}
       </ScrollView>
-      <View style={[styles.typographyPaginationContainer, {
-        marginVertical: theme.layout.space.medium,
-      }]}>
-        {Object.keys(theme.typography).map((_, index) => {
-          const background = index === typographyPage ? theme.application.section.pagination.active : theme.application.section.pagination.inactive;
-          return (
-            <View
-              key={`typohgraphy-paging-item-${index}`}
-              style={[styles.typographyPaginationItem, {
-                borderColor: theme.application.main.text.color,
-                backgroundColor: background.color,
-                opacity: background.opacity,
-              }]} />
-          );
-        })}
-      </View>
+      <Box marginTop={theme.layout.space.big} marginBottom={theme.layout.space.small}>
+        <View style={styles.typographyPaginationContainer}>
+          {Object.keys(theme.typography).map((_, index) => {
+            const background = index === typographyPage ? theme.application.section.pagination.active : theme.application.section.pagination.inactive;
+            return (
+              <View
+                key={`typohgraphy-paging-item-${index}`}
+                style={[styles.typographyPaginationItem, {
+                  borderColor: theme.application.main.text.color,
+                  backgroundColor: background.color,
+                  opacity: background.opacity,
+                }]} />
+            );
+          })}
+        </View>
+      </Box>
     </Section>
   );
 
@@ -165,16 +157,6 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  colorRendererContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    borderWidth: 1,
-  },
-  colorRenderer: {
-    flex: 1,
-    borderRadius: 24,
   },
   colorUnitContainer: {
     flexDirection: 'row',

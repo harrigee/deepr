@@ -35,7 +35,7 @@ const palette: IPalette = {
   },
   paper: {
     color: '#7f7f7f',
-    opacity: 0.2,
+    opacity: 0.3,
   },
   primary: {
     color: '#00BFFF',
