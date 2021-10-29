@@ -26,6 +26,9 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
     <Section title={'Colors'}>
       {Object.keys(theme.palette).map((colorKey, index) => {
         const colorValue = (theme.palette as any)[colorKey];
+        if (!colorValue.color) {
+          return null;
+        }
         return (
           <Box
             paddingVertical={theme.layout.space.small}
@@ -34,27 +37,42 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
             key={`color-item-${index}`}>
             <View style={styles.colorUnitContainer}>
               <Box marginRight={theme.layout.space.medium}>
-                {colorValue.color &&
-                  <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} color={colorValue} />
-                }
-                {colorValue.fromColor && colorValue.toColor &&
-                  <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} gradient={colorValue} />
-                }
+                <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} color={colorValue} />
               </Box>
               <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
               <Box>
-                {colorValue.color &&
-                  <>
-                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
-                    <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
-                  </>
-                }
-                {colorValue.fromColor && colorValue.toColor &&
-                  <>
-                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor} ${colorValue.toColor}`}</Text>
-                    <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
-                  </>
-                }
+                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
+                <Text style={[styles.colorText, theme.application.main.text]}>{` ${colorValue.opacity || 1}`}</Text>
+              </Box>
+            </View>
+          </Box>
+        );
+      })}
+    </Section >
+  );
+
+  const renderGradients = () => (
+    <Section title={'Gradients'}>
+      {Object.keys(theme.palette).map((colorKey, index) => {
+        const colorValue = (theme.palette as any)[colorKey];
+        if (!colorValue.fromColor || !colorValue.toColor) {
+          return null;
+        }
+        return (
+          <Box
+            paddingVertical={theme.layout.space.small}
+            marginRight={theme.layout.space.medium}
+            marginLeft={theme.layout.space.small}
+            key={`gradient-item-${index}`}>
+            <View style={styles.colorUnitContainer}>
+              <Box marginRight={theme.layout.space.medium}>
+                <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} gradient={colorValue} />
+              </Box>
+              <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
+              <Box>
+                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor}`}</Text>
+                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.toColor}`}</Text>
+                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.opacity || 1}`}</Text>
               </Box>
             </View>
           </Box>
@@ -173,6 +191,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
     <View style={[styles.container]}>
       {renderStatusBarStyle()}
       {renderColors()}
+      {renderGradients()}
       {renderTypography()}
       {renderLayout()}
       {renderBorderRadius()}
