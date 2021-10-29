@@ -5,6 +5,7 @@ import ThemeRenderer from './src/main/ThemeRenderer';
 import { Box } from './src/toolkit/Box';
 
 function App() {
+
   const [currentTheme, setCurrentTheme] = useState(themes.dark);
 
   const isDark = currentTheme.application.main.background.color === themes.dark.application.main.background.color;

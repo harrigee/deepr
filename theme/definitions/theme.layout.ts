@@ -8,9 +8,11 @@ export interface ILayout {
     monstrous: number
   },
   borderRadius: {
+    tiny: number,
     small: number,
-    normal: number,
+    medium: number,
     big: number,
-    huge: number
+    huge: number,
+    monstrous: number
   }
 }

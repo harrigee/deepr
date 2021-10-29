@@ -67,10 +67,12 @@ const layout: ILayout = {
     monstrous: 128,
   },
   borderRadius: {
-    small: 4,
-    normal: 8,
+    tiny: 4,
+    small: 8,
+    medium: 12,
     big: 16,
-    huge: 32,
+    huge: 24,
+    monstrous: 32,
   },
 };
 
