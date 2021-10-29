@@ -1,33 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { withTheme } from '../../theme/themes';
 import { IThemeProps } from '../../theme/themes/theme.structure';
+import { Box } from './Box';
 
-interface ISectionProps extends IThemeProps {
+interface IProps extends IThemeProps {
   children?: React.ReactNode;
   title: string;
 }
 
-const Section = ({ children, theme, title }: ISectionProps) => {
+const Section = ({ children, theme, title }: IProps) => {
 
   return (
-    <View style={{
-      marginBottom: theme.layout.space.medium,
-      borderRadius: theme.layout.borderRadius.big,
-      padding: theme.layout.space.medium,
-    }}>
-      <Text style={[styles.sectionHeader, theme.application.section.title, {
-        marginBottom: theme.layout.space.medium,
-      }]}>
-        {title}
-      </Text>
-      <View style={[StyleSheet.absoluteFill, {
-        borderRadius: theme.layout.borderRadius.big,
-        backgroundColor: theme.application.section.background.color,
-        opacity: theme.application.section.background.opacity,
-      }]} />
-      {children}
-    </View>
+    <Box borderRadius={theme.layout.borderRadius.big}>
+      <Box
+        padding={theme.layout.space.medium}
+        marginBottom={theme.layout.space.medium}>
+        <Box marginBottom={theme.layout.space.medium}>
+          <Text style={[styles.sectionHeader, theme.application.section.title]}>
+            {title}
+          </Text>
+        </Box>
+        <Box
+          absoluteFill
+          borderRadius={theme.layout.borderRadius.big}
+          backgroundColor={theme.application.section.background.color}
+          opacity={theme.application.section.background.opacity} />
+        {children}
+      </Box>
+    </Box>
   );
 };
 

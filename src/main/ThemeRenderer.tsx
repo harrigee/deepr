@@ -167,14 +167,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   colorRendererContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     borderWidth: 1,
   },
   colorRenderer: {
     flex: 1,
-    borderRadius: 20,
+    borderRadius: 24,
   },
   colorUnitContainer: {
     flexDirection: 'row',
