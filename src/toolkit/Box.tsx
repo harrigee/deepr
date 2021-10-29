@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { IColor, IGradient } from '../../theme/common/theme.common';
 
 interface IProps {
+  absoluteFill?: boolean;
   children?: React.ReactNode;
   height?: number;
   width?: number;
@@ -30,6 +31,7 @@ export const Box = (props: IProps) => {
 
   const {
     gradient,
+    absoluteFill,
   } = props;
 
   const backgroundColor = props.color && {
@@ -46,7 +48,7 @@ export const Box = (props: IProps) => {
   };
 
   return (
-    <View style={props}>
+    <View style={[props, absoluteFill && StyleSheet.absoluteFill]}>
       {backgroundColor &&
         <View style={[StyleSheet.absoluteFill, backgroundColor, borderRadius]} />
       }
