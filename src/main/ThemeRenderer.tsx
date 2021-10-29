@@ -24,60 +24,70 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 
   const renderColors = () => (
     <Section title={'Colors'}>
-      {Object.keys(theme.palette).map((colorKey, index) => {
-        const colorValue = (theme.palette as any)[colorKey];
-        if (!colorValue.color) {
-          return null;
-        }
-        return (
-          <Box
-            paddingVertical={theme.layout.space.small}
-            marginRight={theme.layout.space.medium}
-            marginLeft={theme.layout.space.small}
-            key={`color-item-${index}`}>
-            <View style={styles.colorUnitContainer}>
-              <Box marginRight={theme.layout.space.medium}>
-                <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} color={colorValue} />
+      <Box paddingTop={theme.layout.space.small}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {Object.keys(theme.palette).map((colorKey, index) => {
+            const colorValue = (theme.palette as any)[colorKey];
+            if (!colorValue.color) {
+              return null;
+            }
+            return (
+              <Box
+                borderWidth={1}
+                minWidth={180}
+                marginBottom={theme.layout.space.small}
+                marginHorizontal={theme.layout.space.small}
+                borderColor={theme.application.main.text.color}
+                borderRadius={theme.layout.borderRadius.normal}
+                color={theme.application.main.background}
+                key={`color-item-${index}`}>
+                <Box color={colorValue} borderRadius={theme.layout.borderRadius.normal}>
+                  <Box padding={theme.layout.space.medium} marginTop={100} borderBottomLeftRadius={theme.layout.borderRadius.normal} borderBottomRightRadius={theme.layout.borderRadius.normal} color={theme.application.main.background}>
+                    <Text style={[theme.typography.h2, theme.palette.text]}>{colorKey}</Text>
+                    <Box height={theme.layout.space.small} />
+                    <Text style={[theme.application.main.text]}>{`${colorValue.color}   ${colorValue.opacity || 1}`}</Text>
+                  </Box>
+                </Box>
               </Box>
-              <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
-              <Box>
-                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
-                <Text style={[styles.colorText, theme.application.main.text]}>{` ${colorValue.opacity || 1}`}</Text>
-              </Box>
-            </View>
-          </Box>
-        );
-      })}
+            );
+          })}
+        </ScrollView>
+      </Box>
     </Section >
   );
 
   const renderGradients = () => (
     <Section title={'Gradients'}>
-      {Object.keys(theme.palette).map((colorKey, index) => {
-        const colorValue = (theme.palette as any)[colorKey];
-        if (!colorValue.fromColor || !colorValue.toColor) {
-          return null;
-        }
-        return (
-          <Box
-            paddingVertical={theme.layout.space.small}
-            marginRight={theme.layout.space.medium}
-            marginLeft={theme.layout.space.small}
-            key={`gradient-item-${index}`}>
-            <View style={styles.colorUnitContainer}>
-              <Box marginRight={theme.layout.space.medium}>
-                <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} gradient={colorValue} />
+      <Box paddingTop={theme.layout.space.small}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {Object.keys(theme.palette).map((colorKey, index) => {
+            const colorValue = (theme.palette as any)[colorKey];
+            if (!colorValue.fromColor || !colorValue.toColor) {
+              return null;
+            }
+            return (
+              <Box
+                borderWidth={1}
+                minWidth={180}
+                marginBottom={theme.layout.space.small}
+                marginHorizontal={theme.layout.space.small}
+                borderColor={theme.application.main.text.color}
+                borderRadius={theme.layout.borderRadius.normal}
+                color={theme.application.main.background}
+                key={`color-item-${index}`}>
+                <Box borderRadius={theme.layout.borderRadius.normal}>
+                  <Box gradient={colorValue} width={'100%'} height={100} borderTopLeftRadius={theme.layout.borderRadius.normal} borderTopRightRadius={theme.layout.borderRadius.normal} />
+                  <Box padding={theme.layout.space.medium} borderBottomLeftRadius={theme.layout.borderRadius.normal} borderBottomRightRadius={theme.layout.borderRadius.normal} color={theme.application.main.background}>
+                    <Text style={[theme.typography.h2, theme.palette.text]}>{colorKey}</Text>
+                    <Box height={theme.layout.space.small} />
+                    <Text style={[theme.application.main.text]}>{`${colorValue.fromColor}   ${colorValue.toColor}   ${colorValue.opacity || 1}`}</Text>
+                  </Box>
+                </Box>
               </Box>
-              <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
-              <Box>
-                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor}`}</Text>
-                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.toColor}`}</Text>
-                <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.opacity || 1}`}</Text>
-              </Box>
-            </View>
-          </Box>
-        );
-      })}
+            );
+          })}
+        </ScrollView>
+      </Box>
     </Section >
   );
 
@@ -163,7 +173,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
   );
 
   const renderBorderRadius = () => (
-    <Section title={'Radius'}>
+    <Section title={'BorderRadius'}>
       <View style={[styles.spaceContainer, {
         marginBottom: theme.layout.space.small,
         marginHorizontal: theme.layout.space.medium,
@@ -202,17 +212,6 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  colorUnitContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  colorText: {
-    flex: 1,
-    textAlign: 'right',
-  },
-  colorName: {
-    textAlign: 'left',
   },
   typographyUnitContainer: {
     justifyContent: 'center',

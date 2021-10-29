@@ -8,4 +8,5 @@ export interface IPalette {
   secondary: IColor,
   toxic: IGradient,
   sundown: IGradient,
+  sunup: IGradient,
 }

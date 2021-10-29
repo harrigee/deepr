@@ -27,6 +27,12 @@ const typography: ITypographies = {
 };
 
 const palette: IPalette = {
+  primary: {
+    color: '#FF1493',
+  },
+  secondary: {
+    color: '#00BFFF',
+  },
   main: {
     color: '#FFFFFF',
   },
@@ -37,19 +43,17 @@ const palette: IPalette = {
     color: '#7f7f7f',
     opacity: 0.2,
   },
-  primary: {
-    color: '#FF1493',
+  sunup: {
+    fromColor: '#ffdf00',
+    toColor: '#ff6400',
   },
-  secondary: {
-    color: '#00BFFF',
+  sundown: {
+    toColor: '#ff00ac',
+    fromColor: '#007dff',
   },
   toxic: {
     fromColor: '#e115ff',
     toColor: '#1dff68',
-  },
-  sundown: {
-    fromColor: '#ff00ac',
-    toColor: '#007dff',
   },
 };
 

@@ -5,8 +5,8 @@ import { IThemeProps } from '../../theme/themes/theme.structure';
 import { Box } from './Box';
 
 interface IProps extends IThemeProps {
-  children?: React.ReactNode;
   title: string;
+  children?: React.ReactNode;
 }
 
 const Section = ({ children, theme, title }: IProps) => {

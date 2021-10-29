@@ -6,9 +6,13 @@ import { IColor, IGradient } from '../../theme/common/theme.common';
 interface IProps {
   absoluteFill?: boolean;
   children?: React.ReactNode;
-  height?: number;
-  width?: number;
-  margin?: number;
+  height?: number | string;
+  minHeight?: number | string;
+  maxHeight?: number | string;
+  width?: number | string;
+  minWidth?: number | string;
+  maxWidth?: number | string;
+  margin?: number | string;
   marginVertical?: number;
   marginHorizontal?: number;
   marginTop?: number;
