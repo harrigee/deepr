@@ -18,7 +18,7 @@ export interface ITypography {
 }
 
 export interface IColor {
-  color?: string;
+  color: string;
   opacity?: number;
 }
 
