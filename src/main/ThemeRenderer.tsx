@@ -38,11 +38,11 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 marginBottom={theme.layout.space.small}
                 marginHorizontal={theme.layout.space.small}
                 borderColor={theme.application.main.text.color}
-                borderRadius={theme.layout.borderRadius.normal}
+                borderRadius={theme.application.colorRenderer.borderRadius}
                 color={theme.application.main.background}
                 key={`color-item-${index}`}>
-                <Box color={colorValue} borderRadius={theme.layout.borderRadius.normal}>
-                  <Box padding={theme.layout.space.medium} marginTop={100} borderBottomLeftRadius={theme.layout.borderRadius.normal} borderBottomRightRadius={theme.layout.borderRadius.normal} color={theme.application.main.background}>
+                <Box color={colorValue} borderRadius={theme.application.colorRenderer.borderRadius}>
+                  <Box padding={theme.layout.space.medium} marginTop={100} borderBottomLeftRadius={theme.application.colorRenderer.borderRadius} borderBottomRightRadius={theme.application.colorRenderer.borderRadius} color={theme.application.main.background}>
                     <Text style={[theme.typography.h2, theme.palette.text]}>{colorKey}</Text>
                     <Box height={theme.layout.space.small} />
                     <Text style={[theme.application.main.text]}>{`${colorValue.color}   ${colorValue.opacity || 1}`}</Text>
@@ -72,12 +72,12 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 marginBottom={theme.layout.space.small}
                 marginHorizontal={theme.layout.space.small}
                 borderColor={theme.application.main.text.color}
-                borderRadius={theme.layout.borderRadius.normal}
+                borderRadius={theme.application.colorRenderer.borderRadius}
                 color={theme.application.main.background}
                 key={`color-item-${index}`}>
-                <Box borderRadius={theme.layout.borderRadius.normal}>
-                  <Box gradient={colorValue} width={'100%'} height={100} borderTopLeftRadius={theme.layout.borderRadius.normal} borderTopRightRadius={theme.layout.borderRadius.normal} />
-                  <Box padding={theme.layout.space.medium} borderBottomLeftRadius={theme.layout.borderRadius.normal} borderBottomRightRadius={theme.layout.borderRadius.normal} color={theme.application.main.background}>
+                <Box borderRadius={theme.application.colorRenderer.borderRadius}>
+                  <Box gradient={colorValue} width={'100%'} height={100} borderTopLeftRadius={theme.application.colorRenderer.borderRadius} borderTopRightRadius={theme.application.colorRenderer.borderRadius} />
+                  <Box padding={theme.layout.space.medium} borderBottomLeftRadius={theme.application.colorRenderer.borderRadius} borderBottomRightRadius={theme.application.colorRenderer.borderRadius} color={theme.application.main.background}>
                     <Text style={[theme.typography.h2, theme.palette.text]}>{colorKey}</Text>
                     <Box height={theme.layout.space.small} />
                     <Text style={[theme.application.main.text]}>{`${colorValue.fromColor}   ${colorValue.toColor}   ${colorValue.opacity || 1}`}</Text>

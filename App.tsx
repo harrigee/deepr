@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, SafeAreaView, ScrollView, StatusBar, StyleSheet } from 'react-native';
 import { ThemeProvider, themes } from './theme/themes';
 import ThemeRenderer from './src/main/ThemeRenderer';
+import { Box } from './src/toolkit/Box';
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark);
@@ -11,7 +12,8 @@ function App() {
   return (
     <ThemeProvider theme={currentTheme}>
       <StatusBar barStyle={currentTheme.statusBarStyle} />
-      <SafeAreaView style={[styles.container, { backgroundColor: currentTheme.application.main.background.color }]} >
+      <Box absoluteFill color={currentTheme.application.main.background} />
+      <SafeAreaView style={[styles.container]} >
         <Button
           color={currentTheme.application.main.button.color}
           title={isDark ? 'LightTheme' : 'DarkTheme'}

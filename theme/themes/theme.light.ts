@@ -103,6 +103,10 @@ export const lightTheme: ITheme = {
         active: palette.primary,
         inactive: palette.secondary,
       },
+      borderRadius: layout.borderRadius.huge,
+    },
+    colorRenderer: {
+      borderRadius: layout.borderRadius.huge,
     },
   },
 };

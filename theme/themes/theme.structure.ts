@@ -10,6 +10,9 @@ interface IApplicationTheme {
     button: IColor
     text: ITypography & IColor
   },
+  colorRenderer: {
+    borderRadius: number
+  },
   section: {
     background: IColor,
     title: ITypography & IColor
@@ -18,6 +21,7 @@ interface IApplicationTheme {
       active: IColor,
       inactive: IColor
     },
+    borderRadius: number
   }
 }
 

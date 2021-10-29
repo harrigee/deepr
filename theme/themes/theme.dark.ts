@@ -102,6 +102,10 @@ export const darkTheme: ITheme = {
         active: palette.primary,
         inactive: palette.secondary,
       },
+      borderRadius: layout.borderRadius.big,
+    },
+    colorRenderer: {
+      borderRadius: layout.borderRadius.big,
     },
   },
 };
