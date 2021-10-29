@@ -50,8 +50,8 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                 }
                 {colorValue.fromColor && colorValue.toColor &&
                   <>
-                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor}`}</Text>
-                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.toColor}`}</Text>
+                    <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.fromColor} ${colorValue.toColor}`}</Text>
+                    <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
                   </>
                 }
               </View>
@@ -135,7 +135,32 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
               }]} />
               <Text
                 style={theme.application.section.subtitle}>
-                {`${spaceKey}`}
+                {`${spaceKey} (${space})`}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+    </Section>
+  );
+
+  const renderBorderRadius = () => (
+    <Section title={'Radius'}>
+      <View style={[styles.spaceContainer, {
+        marginBottom: theme.layout.space.small,
+        marginHorizontal: theme.layout.space.medium,
+      }]}>
+        {Object.keys(theme.layout.borderRadius).map((radiusKey, index) => {
+          const radius = (theme.layout.borderRadius as any)[radiusKey];
+          return (
+            <View
+              key={`border-radius-item-${index}`}
+              style={[styles.spaceRow, {
+                marginVertical: theme.layout.space.tiny,
+              }]}>
+              <Box width={64} height={64} color={theme.application.section.pagination.active} borderRadius={radius} />
+              <Text style={[theme.application.section.subtitle]}>
+                {`${radiusKey} (${radius})`}
               </Text>
             </View>
           );
@@ -150,6 +175,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
       {renderColors()}
       {renderTypography()}
       {renderLayout()}
+      {renderBorderRadius()}
     </View>
   );
 };

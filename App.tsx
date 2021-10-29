@@ -11,9 +11,7 @@ function App() {
   return (
     <ThemeProvider theme={currentTheme}>
       <StatusBar barStyle={currentTheme.statusBarStyle} />
-      <SafeAreaView
-        style={[styles.container, { backgroundColor: currentTheme.application.main.background.color }]}
-      >
+      <SafeAreaView style={[styles.container, { backgroundColor: currentTheme.application.main.background.color }]} >
         <Button
           color={currentTheme.application.main.button.color}
           title={isDark ? 'LightTheme' : 'DarkTheme'}
