@@ -1,9 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { IColor, IGradient } from '../../theme/common/theme.common';
 
 interface IProps {
   children?: React.ReactNode;
-  absoluteFill?: boolean;
+  height?: number;
+  width?: number;
   margin?: number;
   marginTop?: number;
   marginLeft?: number;
@@ -19,19 +22,37 @@ interface IProps {
   borderTopRightRadius?: number;
   borderBottomLeftRadius?: number;
   borderBottomRightRadius?: number;
-  backgroundColor?: string;
-  opacity?: number;
+  color?: IColor;
+  gradient?: IGradient;
 }
 
 export const Box = (props: IProps) => {
 
-  const absoluteFill = props.absoluteFill ? StyleSheet.absoluteFill : {};
+  const {
+    gradient,
+  } = props;
+
+  const backgroundColor = props.color && {
+    backgroundColor: props.color.color,
+    opacity: props.color.opacity,
+  };
+
+  const borderRadius = {
+    borderRadius: props.borderRadius,
+    borderTopLeftRadius: props.borderTopLeftRadius,
+    borderTopRightRadius: props.borderTopRightRadius,
+    borderBottomLeftRadius: props.borderBottomLeftRadius,
+    borderBottomRightRadius: props.borderBottomRightRadius,
+  };
 
   return (
-    <View style={{
-      ...props,
-      ...absoluteFill,
-    }}>
+    <View style={props}>
+      {backgroundColor &&
+        <View style={[StyleSheet.absoluteFill, backgroundColor, borderRadius]} />
+      }
+      {gradient &&
+        <LinearGradient colors={[gradient.fromColor, gradient.toColor]} style={[StyleSheet.absoluteFill, borderRadius]} />
+      }
       {props.children}
     </View>
   );

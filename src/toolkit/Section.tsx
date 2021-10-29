@@ -12,22 +12,17 @@ interface IProps extends IThemeProps {
 const Section = ({ children, theme, title }: IProps) => {
 
   return (
-    <Box borderRadius={theme.layout.borderRadius.big}>
-      <Box
-        padding={theme.layout.space.medium}
-        marginBottom={theme.layout.space.medium}>
-        <Box marginBottom={theme.layout.space.medium}>
-          <Text style={[styles.sectionHeader, theme.application.section.title]}>
-            {title}
-          </Text>
-        </Box>
-        <Box
-          absoluteFill
-          borderRadius={theme.layout.borderRadius.big}
-          backgroundColor={theme.application.section.background.color}
-          opacity={theme.application.section.background.opacity} />
-        {children}
+    <Box
+      color={theme.application.section.background}
+      borderRadius={theme.layout.borderRadius.big}
+      padding={theme.layout.space.medium}
+      marginBottom={theme.layout.space.medium}>
+      <Box marginBottom={theme.layout.space.medium}>
+        <Text style={[styles.sectionHeader, theme.application.section.title]}>
+          {title}
+        </Text>
       </Box>
+      {children}
     </Box>
   );
 };
