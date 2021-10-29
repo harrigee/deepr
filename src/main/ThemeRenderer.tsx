@@ -41,7 +41,8 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                   <Box borderWidth={1} borderColor={theme.application.main.text.color} width={48} height={48} borderRadius={24} gradient={colorValue} />
                 }
               </Box>
-              <View style={styles.colorDetails}>
+              <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
+              <Box>
                 {colorValue.color &&
                   <>
                     <Text style={[styles.colorText, theme.application.main.text]}>{`${colorValue.color}`}</Text>
@@ -54,8 +55,7 @@ const ThemeRenderer = ({ theme }: IThemeProps) => {
                     <Text style={[styles.colorText, theme.application.main.text]}>{`opacity ${colorValue.opacity || 1}`}</Text>
                   </>
                 }
-              </View>
-              <Text style={[styles.colorText, styles.colorName, theme.application.section.subtitle]}>{colorKey}</Text>
+              </Box>
             </View>
           </Box>
         );
@@ -188,15 +188,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  colorDetails: {
-    flexDirection: 'column',
-  },
   colorText: {
     flex: 1,
-    justifyContent: 'flex-end',
+    textAlign: 'right',
   },
   colorName: {
-    textAlign: 'right',
+    textAlign: 'left',
   },
   typographyUnitContainer: {
     justifyContent: 'center',
