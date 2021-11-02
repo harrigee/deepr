@@ -8,7 +8,6 @@ function App() {
 
   const [currentTheme, setCurrentTheme] = useState(themes.dark);
 
-  // Test
   const isDark = currentTheme.application.main.background.color === themes.dark.application.main.background.color;
 
   return (
